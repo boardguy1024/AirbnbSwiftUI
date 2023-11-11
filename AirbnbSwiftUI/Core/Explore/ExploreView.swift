@@ -18,11 +18,17 @@ struct ExploreView: View {
                 ScrollView(showsIndicators: false) {
                     LazyVStack(spacing: 32)  {
                         ForEach(0 ... 10, id: \.self) { listing in
-                            ListingItemView()
+                            
+                            NavigationLink(value: listing) {
+                                ListingItemView()
+                            }
                         }
                     }
                     .padding()
                 }
+            }
+            .navigationDestination(for: Int.self) { listing in
+                ListingDetailView()
             }
         }
     }
@@ -35,7 +41,7 @@ extension ExploreView {
         } label: {
             Image(systemName: "slider.horizontal.3")
                 .tint(.black)
-                .frame(width: 38, height: 38)
+                .frame(width: 35, height: 35)
         }
         .background(
             Capsule()
