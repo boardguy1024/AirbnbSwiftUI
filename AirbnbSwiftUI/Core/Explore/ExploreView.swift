@@ -8,27 +8,35 @@
 import SwiftUI
 
 struct ExploreView: View {
+    
+    @State private var showDestinationSearchView = false
+     
     var body: some View {
         NavigationStack {
             
-            VStack(spacing: 0) {
-                
-                headerView
-                
-                ScrollView(showsIndicators: false) {
-                    LazyVStack(spacing: 32)  {
-                        ForEach(0 ... 10, id: \.self) { listing in
-                            
-                            NavigationLink(value: listing) {
-                                ListingItemView()
+            if showDestinationSearchView {
+                DestinationSearchView(show: $showDestinationSearchView)
+            } else {
+                VStack(spacing: 0) {
+                    
+                    headerView
+                    
+                    ScrollView(showsIndicators: false) {
+                        LazyVStack(spacing: 32)  {
+                            ForEach(0 ... 10, id: \.self) { listing in
+                                
+                                NavigationLink(value: listing) {
+                                    ListingItemView()
+                                }
                             }
                         }
+                        .padding()
                     }
-                    .padding()
                 }
-            }
-            .navigationDestination(for: Int.self) { listing in
-                ListingDetailView()
+                .navigationDestination(for: Int.self) { listing in
+                    ListingDetailView()
+                        .navigationBarBackButtonHidden()
+                }
             }
         }
     }
@@ -53,6 +61,11 @@ extension ExploreView {
         VStack {
             HStack {
                 SearchBar()
+                    .onTapGesture {
+                        withAnimation(.snappy) {
+                            showDestinationSearchView.toggle()
+                        }
+                    }
                 filterButton
             }
             .padding(.horizontal)
