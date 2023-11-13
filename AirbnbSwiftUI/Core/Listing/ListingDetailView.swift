@@ -13,26 +13,11 @@ struct ListingDetailView: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
+        
         ScrollView {
             
-            ZStack(alignment: .topLeading) {
-                ListingImageCarouselView()
-                    .frame(height: 320)
-                
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "chevron.left")
-                        .foregroundColor(.black)
-                        .background(
-                            Circle()
-                                .fill(.white)
-                                .frame(width: 32, height: 32)
-                        )
-                        .padding(32)
-                }
-            }
-          
+            ListingImageCarouselView()
+                .frame(height: 320)
             
             VStack(alignment: .leading, spacing: 8) {
                 Text("Miami Villa")
@@ -55,7 +40,6 @@ struct ListingDetailView: View {
                     Text("Miami Florida")
                 }
                 .font(.caption)
-                
 
             }
             .padding(.leading)
@@ -171,8 +155,28 @@ struct ListingDetailView: View {
             }
             .padding()
         }
+        .toolbar(.hidden, for: .tabBar) // TabBarをhidden
         .padding(.bottom, 80)
-
+        .overlay(alignment: .top) {
+            HStack {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .foregroundColor(.black)
+                        .background(
+                            Circle()
+                                .fill(.white)
+                                .frame(width: 32, height: 32)
+                        )
+                        .padding(32)
+                }
+                
+                Spacer()
+            }
+            .padding(.top, 20)
+            
+        }
         .overlay(alignment: .bottom) {
             VStack {
                 Divider()
