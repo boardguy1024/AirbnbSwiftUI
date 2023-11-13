@@ -144,7 +144,7 @@ struct CollapsibleDestinationViewModifier: ViewModifier {
             .shadow(color: .gray.opacity(0.4), radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
     }
 }
-
+ 
 struct CollapsedPickerView: View {
     
     let title: String
